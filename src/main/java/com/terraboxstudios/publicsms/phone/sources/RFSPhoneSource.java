@@ -32,11 +32,6 @@ public class RFSPhoneSource implements PhoneSource {
     }
 
     @Override
-    public Collection<PublicPhone> getPhoneNumbers(String countryCode) throws IOException {
-        return getPhoneNumbers().stream().filter(phone -> phone.getCountryCode().equalsIgnoreCase(countryCode)).collect(Collectors.toSet());
-    }
-
-    @Override
     public Collection<Message> getMessages(PublicPhone receivingPhone) throws IOException {
         JsonObject payload = new JsonObject();
         payload.addProperty("number", receivingPhone.getNumber());
