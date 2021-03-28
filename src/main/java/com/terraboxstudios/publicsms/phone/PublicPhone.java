@@ -1,5 +1,9 @@
 package com.terraboxstudios.publicsms.phone;
 
+import com.terraboxstudios.publicsms.message.Message;
+
+import java.io.IOException;
+import java.util.Collection;
 import java.util.Objects;
 
 public class PublicPhone extends Phone {
@@ -12,8 +16,8 @@ public class PublicPhone extends Phone {
         this.phoneSource = phoneSource;
     }
 
-    public PhoneSource getPhoneSource() {
-        return phoneSource;
+    public Collection<Message> getMessages() throws IOException {
+        return phoneSource.getMessages(this);
     }
 
     @Override
