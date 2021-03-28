@@ -14,7 +14,6 @@ import java.net.HttpURLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class RFSPhoneSource implements PhoneSource {
 
