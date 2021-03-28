@@ -1,5 +1,7 @@
 package com.terraboxstudios.publicsms.phone;
 
+import com.terraboxstudios.publicsms.utils.Logger;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -15,8 +17,10 @@ public class PublicPhoneGenerator {
     public PublicPhoneGenerator(PhoneSource... phoneSources) {
         for (PhoneSource phoneSource : phoneSources) {
             try {
+                Logger.debug("Started retrieving numbers from " + phoneSource.getClass().getSimpleName());
                 Collection<PublicPhone> phones = phoneSource.getPhoneNumbers();
                 publicPhones.addAll(phones);
+                Logger.debug("Finished retrieving numbers from " + phoneSource.getClass().getSimpleName());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -32,8 +36,10 @@ public class PublicPhoneGenerator {
     public PublicPhoneGenerator(String countryCode, PhoneSource... phoneSources) {
         for (PhoneSource phoneSource : phoneSources) {
             try {
+                Logger.debug("Started retrieving numbers from " + phoneSource.getClass().getSimpleName());
                 Collection<PublicPhone> phones = phoneSource.getPhoneNumbers(countryCode);
                 publicPhones.addAll(phones);
+                Logger.debug("Finished retrieving numbers from " + phoneSource.getClass().getSimpleName());
             } catch (IOException e) {
                 e.printStackTrace();
             }
