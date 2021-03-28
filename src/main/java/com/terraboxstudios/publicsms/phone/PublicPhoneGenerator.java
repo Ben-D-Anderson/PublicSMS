@@ -26,13 +26,13 @@ public class PublicPhoneGenerator {
     /**
      * Fills the PublicPhoneGenerator with PublicPhone(s)
      * gathered from the PhoneSource(s) which match the specified country.
-     * @param country The country where the phone numbers should be located.
+     * @param countryCode The country where the phone numbers should be located.
      * @param phoneSources PhoneSource(s) to use to get PublicPhone(s)
      */
-    public PublicPhoneGenerator(Locale country, PhoneSource... phoneSources) {
+    public PublicPhoneGenerator(String countryCode, PhoneSource... phoneSources) {
         for (PhoneSource phoneSource : phoneSources) {
             try {
-                Collection<PublicPhone> phones = phoneSource.getPhoneNumbers(country.getCountry());
+                Collection<PublicPhone> phones = phoneSource.getPhoneNumbers(countryCode);
                 publicPhones.addAll(phones);
             } catch (IOException e) {
                 e.printStackTrace();

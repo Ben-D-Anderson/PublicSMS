@@ -18,12 +18,11 @@ public interface PhoneSource {
 
      /**
       * Method used to collect available PublicPhone(s) which belong to the country
-      * defined by the two-digit, uppercase ISO 3166 code the from the phone source.
-      * @param countryCode two-digit, uppercase ISO 3166 code associated with the country
+      * defined by the code from the phone source.
+      * @param countryCode code associated with the country
       * of the PublicPhone(s) which are being retrieved.
       * @return Collection of PublicPhone(s) objects, which are available and who's
-      * two-digit, uppercase ISO 3166 country code matches the countryCode
-      * parameter, provided by the phone source.
+      * country code matches the countryCode parameter, provided by the phone source.
       * @throws IOException may be thrown when communicating with a website or api.
       */
      Collection<PublicPhone> getPhoneNumbers(String countryCode) throws IOException;

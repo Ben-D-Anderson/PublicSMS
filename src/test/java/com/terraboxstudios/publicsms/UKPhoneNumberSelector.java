@@ -14,7 +14,7 @@ public class UKPhoneNumberSelector {
 
         PhoneSource rfsPhoneSource = new RFSPhoneSource();
 
-        PublicPhoneGenerator publicPhoneGenerator = new PublicPhoneGenerator(Locale.UK, rfsPhoneSource);
+        PublicPhoneGenerator publicPhoneGenerator = new PublicPhoneGenerator(Locale.UK.getCountry(), rfsPhoneSource);
         Optional<PublicPhone> publicPhone = publicPhoneGenerator.getRandomPublicPhone();
         publicPhone.ifPresent(phone -> System.out.println(phone.getNumber()));
 
