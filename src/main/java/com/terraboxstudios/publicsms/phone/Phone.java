@@ -7,7 +7,7 @@ public class Phone {
     private final String number, countryCode;
 
     public Phone(String number, String countryCode) {
-        if (number == null || countryCode == null) throw new NullPointerException();
+        if (number == null) throw new NullPointerException();
         this.number = number;
         this.countryCode = countryCode;
     }
