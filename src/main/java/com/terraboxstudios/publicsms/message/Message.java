@@ -50,7 +50,7 @@ public class Message {
         return body;
     }
 
-    public Message(Phone sender, PublicPhone receiver, Date date, String body) {
+    private Message(Phone sender, PublicPhone receiver, Date date, String body) {
         this.sender = sender;
         this.receiver = receiver;
         this.date = date;
