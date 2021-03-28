@@ -37,4 +37,11 @@ public class Phone {
         return Objects.hash(number, countryCode);
     }
 
+    @Override
+    public final String toString() {
+        return "Phone{" +
+                "number='" + number + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                '}';
+    }
 }
