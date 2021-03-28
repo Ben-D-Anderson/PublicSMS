@@ -92,7 +92,7 @@ public class HttpUtility {
         return response;
     }
 
-    public static String[] readMultipleLinesRespone(HttpURLConnection httpConn) throws IOException {
+    public static String[] readMultipleLinesResponse(HttpURLConnection httpConn) throws IOException {
         InputStream inputStream;
         if (httpConn != null) {
             inputStream = httpConn.getInputStream();
@@ -102,9 +102,9 @@ public class HttpUtility {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 inputStream));
-        List<String> response = new ArrayList<String>();
+        List<String> response = new ArrayList<>();
 
-        String line = "";
+        String line;
         while ((line = reader.readLine()) != null) {
             response.add(line);
         }
