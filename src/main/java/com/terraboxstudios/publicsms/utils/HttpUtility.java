@@ -59,6 +59,7 @@ public class HttpUtility {
                                                     JsonObject data) throws IOException {
         URL url = new URL(requestURL);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        httpConn.setRequestProperty("Content-Type", "application/json");
         httpConn.setUseCaches(false);
 
         httpConn.setDoInput(true);
