@@ -40,11 +40,11 @@ public class RFSPhoneSource implements PhoneSource {
         final List<Message> messages = new LinkedList<>();
         messagesJson.forEach(msgJson -> {
             String fromStr = msgJson.getAsJsonObject().get("from").getAsString();
-            Phone sender = null;
+            Phone sender;
             try {
                 sender = new Phone(fromStr, PhoneNumberUtil.getInstance().getRegionCodeForNumber(PhoneNumberUtil.getInstance().parse(fromStr, receivingPhone.getCountryCode())));
             } catch (NumberParseException e) {
-                e.printStackTrace();
+                sender = new Phone(fromStr, receivingPhone.getCountryCode());
             }
             Date date = null;
             try {

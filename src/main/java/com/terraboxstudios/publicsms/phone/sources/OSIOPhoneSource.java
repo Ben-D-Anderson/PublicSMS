@@ -58,11 +58,11 @@ public class OSIOPhoneSource implements PhoneSource {
         for (JsonElement msgElement : messagesJson) {
             JsonObject msgObj = msgElement.getAsJsonObject();
             String fromStr = msgObj.get("in_number").getAsString();
-            Phone sender = null;
+            Phone sender;
             try {
                 sender = new Phone(fromStr, PhoneNumberUtil.getInstance().getRegionCodeForNumber(PhoneNumberUtil.getInstance().parse(fromStr, receivingPhone.getCountryCode())));
             } catch (NumberParseException e) {
-                e.printStackTrace();
+                sender = new Phone(fromStr, receivingPhone.getCountryCode());
             }
             Date date = null;
             try {
