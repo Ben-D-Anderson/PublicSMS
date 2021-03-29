@@ -8,7 +8,7 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.terraboxstudios.publicsms.message.Message;
 import com.terraboxstudios.publicsms.phone.Phone;
-import com.terraboxstudios.publicsms.phone.PhoneSource;
+import com.terraboxstudios.publicsms.phone.PublicPhoneSource;
 import com.terraboxstudios.publicsms.phone.PublicPhone;
 import com.terraboxstudios.publicsms.utils.HttpUtility;
 
@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-public class OSIOPhoneSource implements PhoneSource {
+public class OSIOPublicPhoneSource implements PublicPhoneSource {
 
     @Override
     public Collection<PublicPhone> getPhoneNumbers() throws IOException {

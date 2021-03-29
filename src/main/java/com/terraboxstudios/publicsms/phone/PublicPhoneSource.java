@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public interface PhoneSource {
+public interface PublicPhoneSource {
 
      /**
       * Method used to collect available PublicPhone(s) from

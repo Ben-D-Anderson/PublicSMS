@@ -12,15 +12,15 @@ public class PublicPhoneGenerator {
     /**
      * Fills the PublicPhoneGenerator with PublicPhone(s)
      * gathered from the PhoneSource(s).
-     * @param phoneSources PhoneSource(s) to use to get PublicPhone(s)
+     * @param publicPhoneSources PhoneSource(s) to use to get PublicPhone(s)
      */
-    public PublicPhoneGenerator(PhoneSource... phoneSources) {
-        for (PhoneSource phoneSource : phoneSources) {
+    public PublicPhoneGenerator(PublicPhoneSource... publicPhoneSources) {
+        for (PublicPhoneSource publicPhoneSource : publicPhoneSources) {
             try {
-                Logger.debug("Started retrieving numbers from " + phoneSource.getClass().getSimpleName());
-                Collection<PublicPhone> phones = phoneSource.getPhoneNumbers();
+                Logger.debug("Started retrieving numbers from " + publicPhoneSource.getClass().getSimpleName());
+                Collection<PublicPhone> phones = publicPhoneSource.getPhoneNumbers();
                 publicPhones.addAll(phones);
-                Logger.debug("Finished retrieving numbers from " + phoneSource.getClass().getSimpleName());
+                Logger.debug("Finished retrieving numbers from " + publicPhoneSource.getClass().getSimpleName());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -31,15 +31,15 @@ public class PublicPhoneGenerator {
      * Fills the PublicPhoneGenerator with PublicPhone(s)
      * gathered from the PhoneSource(s) which match the specified country.
      * @param countryCode The country where the phone numbers should be located.
-     * @param phoneSources PhoneSource(s) to use to get PublicPhone(s)
+     * @param publicPhoneSources PhoneSource(s) to use to get PublicPhone(s)
      */
-    public PublicPhoneGenerator(String countryCode, PhoneSource... phoneSources) {
-        for (PhoneSource phoneSource : phoneSources) {
+    public PublicPhoneGenerator(String countryCode, PublicPhoneSource... publicPhoneSources) {
+        for (PublicPhoneSource publicPhoneSource : publicPhoneSources) {
             try {
-                Logger.debug("Started retrieving numbers from " + phoneSource.getClass().getSimpleName());
-                Collection<PublicPhone> phones = phoneSource.getPhoneNumbers(countryCode);
+                Logger.debug("Started retrieving numbers from " + publicPhoneSource.getClass().getSimpleName());
+                Collection<PublicPhone> phones = publicPhoneSource.getPhoneNumbers(countryCode);
                 publicPhones.addAll(phones);
-                Logger.debug("Finished retrieving numbers from " + phoneSource.getClass().getSimpleName());
+                Logger.debug("Finished retrieving numbers from " + publicPhoneSource.getClass().getSimpleName());
             } catch (IOException e) {
                 e.printStackTrace();
             }

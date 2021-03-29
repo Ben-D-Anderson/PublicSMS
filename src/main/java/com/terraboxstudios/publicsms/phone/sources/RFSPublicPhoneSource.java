@@ -5,7 +5,7 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.terraboxstudios.publicsms.message.Message;
 import com.terraboxstudios.publicsms.phone.Phone;
-import com.terraboxstudios.publicsms.phone.PhoneSource;
+import com.terraboxstudios.publicsms.phone.PublicPhoneSource;
 import com.terraboxstudios.publicsms.phone.PublicPhone;
 import com.terraboxstudios.publicsms.utils.HttpUtility;
 
@@ -15,7 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class RFSPhoneSource implements PhoneSource {
+public class RFSPublicPhoneSource implements PublicPhoneSource {
 
     @Override
     public Collection<PublicPhone> getPhoneNumbers() throws IOException {
