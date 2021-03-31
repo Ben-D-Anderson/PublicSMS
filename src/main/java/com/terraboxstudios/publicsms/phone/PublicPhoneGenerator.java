@@ -14,7 +14,7 @@ public class PublicPhoneGenerator {
      * gathered from the PhoneSource(s).
      * @param publicPhoneSources PhoneSource(s) to use to get PublicPhone(s)
      */
-    public PublicPhoneGenerator(PublicPhoneSource... publicPhoneSources) {
+    public PublicPhoneGenerator(Collection<PublicPhoneSource> publicPhoneSources) {
         for (PublicPhoneSource publicPhoneSource : publicPhoneSources) {
             try {
                 Logger.debug("Started retrieving numbers from " + publicPhoneSource.getClass().getSimpleName());
@@ -33,7 +33,7 @@ public class PublicPhoneGenerator {
      * @param countryCode The country where the phone numbers should be located.
      * @param publicPhoneSources PhoneSource(s) to use to get PublicPhone(s)
      */
-    public PublicPhoneGenerator(String countryCode, PublicPhoneSource... publicPhoneSources) {
+    public PublicPhoneGenerator(String countryCode, Collection<PublicPhoneSource> publicPhoneSources) {
         for (PublicPhoneSource publicPhoneSource : publicPhoneSources) {
             try {
                 Logger.debug("Started retrieving numbers from " + publicPhoneSource.getClass().getSimpleName());
