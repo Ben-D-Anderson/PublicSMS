@@ -1,6 +1,6 @@
 package com.terraboxstudios.publicsms.services;
 
-import com.terraboxstudios.publicsms.message.Message;
+import com.terraboxstudios.publicsms.message.InboundMessage;
 import com.terraboxstudios.publicsms.phone.PublicPhone;
 
 import java.io.IOException;
@@ -11,13 +11,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class PublicPhoneReceiveMessageService implements Runnable {
+public class InboundMessageService implements Runnable {
 
     private final ScheduledExecutorService scheduledExecutorService;
-    private final Collection<PublicPhoneReceiveMessageListener> listeners;
+    private final Collection<InboundMessageListener> listeners;
     private final PublicPhone publicPhone;
 
-    public PublicPhoneReceiveMessageService(int corePoolSize, Collection<PublicPhoneReceiveMessageListener> listeners, PublicPhone publicPhone) {
+    public InboundMessageService(int corePoolSize, Collection<InboundMessageListener> listeners, PublicPhone publicPhone) {
         this.listeners = Collections.synchronizedCollection(new HashSet<>());
         if (listeners != null) this.listeners.addAll(listeners);
         this.publicPhone = publicPhone;
@@ -28,42 +28,42 @@ public class PublicPhoneReceiveMessageService implements Runnable {
         scheduledExecutorService.scheduleWithFixedDelay(this, initialDelay, delay, timeUnit);
     }
 
-    Collection<Message> receivedMessages = new HashSet<>();
+    Collection<InboundMessage> receivedInboundMessages = new HashSet<>();
     @Override
     public void run() {
         try {
-            Collection<Message> messages = getPublicPhone().getMessages();
-            messages.stream().filter(msg -> !receivedMessages.contains(msg)).forEach(msg -> {
+            Collection<InboundMessage> inboundMessages = getPublicPhone().getMessages();
+            inboundMessages.stream().filter(msg -> !receivedInboundMessages.contains(msg)).forEach(msg -> {
                 callReceiveMessageEvent(getPublicPhone(), msg);
-                receivedMessages.add(msg);
+                receivedInboundMessages.add(msg);
             });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void addListener(PublicPhoneReceiveMessageListener listener) {
+    public void addListener(InboundMessageListener listener) {
         synchronized (listeners) {
             listeners.add(listener);
         }
     }
 
-    public void removeListener(PublicPhoneReceiveMessageListener listener) {
+    public void removeListener(InboundMessageListener listener) {
         synchronized (listeners) {
             listeners.remove(listener);
         }
     }
 
-    public Collection<PublicPhoneReceiveMessageListener> getListeners() {
+    public Collection<InboundMessageListener> getListeners() {
         synchronized (listeners) {
             return listeners;
         }
     }
 
-    public void callReceiveMessageEvent(PublicPhone publicPhone, Message message) {
+    public void callReceiveMessageEvent(PublicPhone publicPhone, InboundMessage inboundMessage) {
         synchronized (listeners) {
-            for (PublicPhoneReceiveMessageListener listener : listeners) {
-                listener.onReceiveMessage(publicPhone, message);
+            for (InboundMessageListener listener : listeners) {
+                listener.onReceiveMessage(publicPhone, inboundMessage);
             }
         }
     }
