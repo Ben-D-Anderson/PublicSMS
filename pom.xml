@@ -19,6 +19,18 @@
             <artifactId>libphonenumber</artifactId>
             <version>8.10.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
+
+        <!-- API for ClockworkOutboundMessageSender -->
+        <dependency>
+            <groupId>com.clockworksms</groupId>
+            <artifactId>clockwork</artifactId>
+            <version>1.2.1</version>
+        </dependency>
     </dependencies>
 
     <build>
