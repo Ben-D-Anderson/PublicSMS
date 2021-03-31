@@ -1,6 +1,6 @@
 package com.terraboxstudios.publicsms.phone;
 
-import com.terraboxstudios.publicsms.message.Message;
+import com.terraboxstudios.publicsms.message.InboundMessage;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -39,6 +39,6 @@ public interface PublicPhoneSource {
       * and were sent to the receivingPhone.
       * @throws IOException may be thrown when communicating with a website or api.
       */
-     Collection<Message> getMessages(PublicPhone receivingPhone) throws IOException;
+     Collection<InboundMessage> getMessages(PublicPhone receivingPhone) throws IOException;
 
 }
