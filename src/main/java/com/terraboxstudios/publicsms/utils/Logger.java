@@ -26,4 +26,8 @@ public class Logger {
         logger.log(Level.SEVERE, formattedTime.get() + message);
     }
 
+    public static void setLevel(Level level) {
+        logger.setLevel(level);
+    }
+
 }
