@@ -1,9 +1,11 @@
 package com.terraboxstudios.publicsms.phone;
 
 import com.sun.istack.internal.Nullable;
+import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 public class Phone {
 
     private final String number;
@@ -13,15 +15,6 @@ public class Phone {
         if (number == null) throw new NullPointerException();
         this.number = number;
         this.countryCode = countryCode;
-    }
-
-    @Nullable
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public String getNumber() {
-        return number;
     }
 
     @Override
@@ -37,11 +30,4 @@ public class Phone {
         return Objects.hash(number, countryCode);
     }
 
-    @Override
-    public final String toString() {
-        return "Phone{" +
-                "number='" + number + '\'' +
-                ", countryCode='" + countryCode + '\'' +
-                '}';
-    }
 }
