@@ -6,6 +6,8 @@ import com.terraboxstudios.publicsms.phone.PublicPhoneGenerator;
 import com.terraboxstudios.publicsms.phone.sources.OSIOPublicPhoneSource;
 import com.terraboxstudios.publicsms.phone.sources.RFSPublicPhoneSource;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -16,7 +18,11 @@ public class UKPhoneNumberSelector {
         PublicPhoneSource rfsPublicPhoneSource = new RFSPublicPhoneSource();
         PublicPhoneSource osioPublicPhoneSource = new OSIOPublicPhoneSource();
 
-        PublicPhoneGenerator publicPhoneGenerator = new PublicPhoneGenerator(Locale.UK.getCountry(), rfsPublicPhoneSource, osioPublicPhoneSource);
+        Collection<PublicPhoneSource> publicPhoneSources = new HashSet<>();
+        publicPhoneSources.add(rfsPublicPhoneSource);
+        publicPhoneSources.add(osioPublicPhoneSource);
+
+        PublicPhoneGenerator publicPhoneGenerator = new PublicPhoneGenerator(Locale.UK.getCountry(), publicPhoneSources);
         Optional<PublicPhone> publicPhone = publicPhoneGenerator.getRandomPublicPhone();
         publicPhone.ifPresent(phone -> System.out.println(phone.getNumber()));
 
