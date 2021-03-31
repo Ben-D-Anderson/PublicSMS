@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.terraboxstudios.publicsms.message.Message;
+import com.terraboxstudios.publicsms.message.InboundMessage;
 import com.terraboxstudios.publicsms.phone.Phone;
 import com.terraboxstudios.publicsms.phone.PublicPhoneSource;
 import com.terraboxstudios.publicsms.phone.PublicPhone;
@@ -48,13 +48,13 @@ public class OSIOPublicPhoneSource implements PublicPhoneSource {
     }
 
     @Override
-    public Collection<Message> getMessages(PublicPhone receivingPhone) throws IOException {
+    public Collection<InboundMessage> getMessages(PublicPhone receivingPhone) throws IOException {
         int countryCodeInt = PhoneNumberUtil.getInstance().getCountryCodeForRegion(receivingPhone.getCountryCode());
         String countryCodeStr = "+" + countryCodeInt;
         String shortenedNumber = receivingPhone.getNumber().replace(countryCodeStr, "");
         String responseStr = HttpUtility.readSingleLineRespone(HttpUtility.sendGetRequest("https://onlinesim.io/api/getFreeList?lang=en&country=" + countryCodeInt + "&number=" + shortenedNumber));
         JsonArray messagesJson = JsonParser.parseString(responseStr).getAsJsonObject().get("messages").getAsJsonObject().get("data").getAsJsonArray();
-        Collection<Message> messages = new HashSet<>();
+        Collection<InboundMessage> inboundMessages = new HashSet<>();
         for (JsonElement msgElement : messagesJson) {
             JsonObject msgObj = msgElement.getAsJsonObject();
             String fromStr = msgObj.get("in_number").getAsString();
@@ -70,10 +70,10 @@ public class OSIOPublicPhoneSource implements PublicPhoneSource {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            Message message = Message.from(sender, receivingPhone, date, msgObj.get("text").getAsString());
-            messages.add(message);
+            InboundMessage inboundMessage = InboundMessage.from(sender, receivingPhone, date, msgObj.get("text").getAsString());
+            inboundMessages.add(inboundMessage);
         }
-        return messages;
+        return inboundMessages;
     }
 
 }

@@ -3,7 +3,7 @@ package com.terraboxstudios.publicsms.phone.sources;
 import com.google.gson.*;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.terraboxstudios.publicsms.message.Message;
+import com.terraboxstudios.publicsms.message.InboundMessage;
 import com.terraboxstudios.publicsms.phone.Phone;
 import com.terraboxstudios.publicsms.phone.PublicPhoneSource;
 import com.terraboxstudios.publicsms.phone.PublicPhone;
@@ -31,13 +31,13 @@ public class RFSPublicPhoneSource implements PublicPhoneSource {
     }
 
     @Override
-    public Collection<Message> getMessages(PublicPhone receivingPhone) throws IOException {
+    public Collection<InboundMessage> getMessages(PublicPhone receivingPhone) throws IOException {
         JsonObject payload = new JsonObject();
         payload.addProperty("number", receivingPhone.getNumber());
         HttpURLConnection httpURLConnection = HttpUtility.sendPostRequest("https://receive-free-sms.com/api/number/phone", payload);
         String response = HttpUtility.readSingleLineRespone(httpURLConnection);
         JsonArray messagesJson = JsonParser.parseString(response).getAsJsonArray().get(0).getAsJsonObject().get("messages").getAsJsonArray();
-        final List<Message> messages = new LinkedList<>();
+        final List<InboundMessage> inboundMessages = new LinkedList<>();
         messagesJson.forEach(msgJson -> {
             String fromStr = msgJson.getAsJsonObject().get("from").getAsString();
             Phone sender;
@@ -52,10 +52,10 @@ public class RFSPublicPhoneSource implements PublicPhoneSource {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            messages.add(Message.from(sender, receivingPhone, date, msgJson.getAsJsonObject().get("body").getAsString()));
+            inboundMessages.add(InboundMessage.from(sender, receivingPhone, date, msgJson.getAsJsonObject().get("body").getAsString()));
         });
-        Collections.reverse(messages);
-        return messages;
+        Collections.reverse(inboundMessages);
+        return inboundMessages;
     }
 
 }
