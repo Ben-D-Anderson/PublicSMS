@@ -77,7 +77,7 @@ public class HttpUtility {
         return httpConn;
     }
 
-    public static String readSingleLineRespone(HttpURLConnection httpConn) throws IOException {
+    public static String readSingleLineResponse(HttpURLConnection httpConn) throws IOException {
         InputStream inputStream;
         if (httpConn != null) {
             inputStream = httpConn.getInputStream();
