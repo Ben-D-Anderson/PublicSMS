@@ -23,7 +23,7 @@ public class OSIOPublicPhoneSource implements PublicPhoneSource {
 
     @Override
     public Collection<PublicPhone> getPhoneNumbers() throws IOException {
-        String countriesResponseStr = HttpUtility.readSingleLineRespone(HttpUtility.sendGetRequest("https://onlinesim.io/api/getFreeList?lang=en"));
+        String countriesResponseStr = HttpUtility.readSingleLineResponse(HttpUtility.sendGetRequest("https://onlinesim.io/api/getFreeList?lang=en"));
         JsonArray countries = JsonParser.parseString(countriesResponseStr).getAsJsonObject().get("countries").getAsJsonArray();
         Collection<Integer> countryNumberCodes = new HashSet<>();
         for (JsonElement country : countries) {
@@ -31,7 +31,7 @@ public class OSIOPublicPhoneSource implements PublicPhoneSource {
         }
         Collection<PublicPhone> publicPhones = new HashSet<>();
         for (int numCode : countryNumberCodes) {
-            String numbersResponseStr = HttpUtility.readSingleLineRespone(HttpUtility.sendGetRequest("https://onlinesim.io/api/getFreeList?lang=en&country=" + numCode));
+            String numbersResponseStr = HttpUtility.readSingleLineResponse(HttpUtility.sendGetRequest("https://onlinesim.io/api/getFreeList?lang=en&country=" + numCode));
             JsonObject numbers = JsonParser.parseString(numbersResponseStr).getAsJsonObject().get("numbers").getAsJsonObject();
             for (String key : numbers.keySet()) {
                 String numStr = numbers.get(key).getAsJsonObject().get("full_number").getAsString();
@@ -52,7 +52,7 @@ public class OSIOPublicPhoneSource implements PublicPhoneSource {
         int countryCodeInt = PhoneNumberUtil.getInstance().getCountryCodeForRegion(receivingPhone.getCountryCode());
         String countryCodeStr = "+" + countryCodeInt;
         String shortenedNumber = receivingPhone.getNumber().replace(countryCodeStr, "");
-        String responseStr = HttpUtility.readSingleLineRespone(HttpUtility.sendGetRequest("https://onlinesim.io/api/getFreeList?lang=en&country=" + countryCodeInt + "&number=" + shortenedNumber));
+        String responseStr = HttpUtility.readSingleLineResponse(HttpUtility.sendGetRequest("https://onlinesim.io/api/getFreeList?lang=en&country=" + countryCodeInt + "&number=" + shortenedNumber));
         JsonArray messagesJson = JsonParser.parseString(responseStr).getAsJsonObject().get("messages").getAsJsonObject().get("data").getAsJsonArray();
         Collection<InboundMessage> inboundMessages = new HashSet<>();
         for (JsonElement msgElement : messagesJson) {

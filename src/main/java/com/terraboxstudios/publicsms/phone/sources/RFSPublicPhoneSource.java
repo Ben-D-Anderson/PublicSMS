@@ -19,7 +19,7 @@ public class RFSPublicPhoneSource implements PublicPhoneSource {
 
     @Override
     public Collection<PublicPhone> getPhoneNumbers() throws IOException {
-        String response = HttpUtility.readSingleLineRespone(HttpUtility.sendGetRequest("https://receive-free-sms.com/api/number/phonepagelist"));
+        String response = HttpUtility.readSingleLineResponse(HttpUtility.sendGetRequest("https://receive-free-sms.com/api/number/phonepagelist"));
         JsonArray numbers = JsonParser.parseString(response).getAsJsonArray();
         Collection<PublicPhone> publicPhones = new HashSet<>();
         numbers.forEach(phone -> {
@@ -35,7 +35,7 @@ public class RFSPublicPhoneSource implements PublicPhoneSource {
         JsonObject payload = new JsonObject();
         payload.addProperty("number", receivingPhone.getNumber());
         HttpURLConnection httpURLConnection = HttpUtility.sendPostRequest("https://receive-free-sms.com/api/number/phone", payload);
-        String response = HttpUtility.readSingleLineRespone(httpURLConnection);
+        String response = HttpUtility.readSingleLineResponse(httpURLConnection);
         JsonArray messagesJson = JsonParser.parseString(response).getAsJsonArray().get(0).getAsJsonObject().get("messages").getAsJsonArray();
         final List<InboundMessage> inboundMessages = new LinkedList<>();
         messagesJson.forEach(msgJson -> {
