@@ -17,6 +17,14 @@ public class InboundMessageService implements Runnable {
     private final Collection<InboundMessageListener> listeners;
     private final PublicPhone publicPhone;
 
+    public InboundMessageService(PublicPhone publicPhone) {
+        this(1, null, publicPhone);
+    }
+
+    public InboundMessageService(Collection<InboundMessageListener> listeners, PublicPhone publicPhone) {
+        this(1, listeners, publicPhone);
+    }
+
     public InboundMessageService(int corePoolSize, Collection<InboundMessageListener> listeners, PublicPhone publicPhone) {
         this.listeners = Collections.synchronizedCollection(new HashSet<>());
         if (listeners != null) this.listeners.addAll(listeners);
@@ -34,7 +42,7 @@ public class InboundMessageService implements Runnable {
         try {
             Collection<InboundMessage> inboundMessages = getPublicPhone().getMessages();
             inboundMessages.stream().filter(msg -> !receivedInboundMessages.contains(msg)).forEach(msg -> {
-                callReceiveMessageEvent(getPublicPhone(), msg);
+                notifyListeners(getPublicPhone(), msg);
                 receivedInboundMessages.add(msg);
             });
         } catch (IOException e) {
@@ -60,7 +68,7 @@ public class InboundMessageService implements Runnable {
         }
     }
 
-    public void callReceiveMessageEvent(PublicPhone publicPhone, InboundMessage inboundMessage) {
+    public void notifyListeners(PublicPhone publicPhone, InboundMessage inboundMessage) {
         synchronized (listeners) {
             for (InboundMessageListener listener : listeners) {
                 listener.onReceiveMessage(publicPhone, inboundMessage);
