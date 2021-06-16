@@ -1,6 +1,5 @@
-package com.terraboxstudios.publicsms.services;
+package com.terraboxstudios.publicsms.message.inbound;
 
-import com.terraboxstudios.publicsms.message.InboundMessage;
 import com.terraboxstudios.publicsms.phone.PublicPhone;
 
 public interface InboundMessageListener {

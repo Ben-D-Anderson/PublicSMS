@@ -1,4 +1,4 @@
-package com.terraboxstudios.publicsms.message;
+package com.terraboxstudios.publicsms.message.outbound;
 
 public interface OutboundMessageSender<T> {
 

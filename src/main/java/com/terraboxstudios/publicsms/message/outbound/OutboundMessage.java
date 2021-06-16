@@ -1,4 +1,4 @@
-package com.terraboxstudios.publicsms.message;
+package com.terraboxstudios.publicsms.message.outbound;
 
 import com.terraboxstudios.publicsms.phone.Phone;
 import com.terraboxstudios.publicsms.phone.PublicPhone;

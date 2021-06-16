@@ -3,7 +3,7 @@ package com.terraboxstudios.publicsms.phone.sources;
 import com.google.gson.*;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.terraboxstudios.publicsms.message.InboundMessage;
+import com.terraboxstudios.publicsms.message.inbound.InboundMessage;
 import com.terraboxstudios.publicsms.phone.Phone;
 import com.terraboxstudios.publicsms.phone.PublicPhoneSource;
 import com.terraboxstudios.publicsms.phone.PublicPhone;

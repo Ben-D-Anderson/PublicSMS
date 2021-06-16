@@ -1,6 +1,6 @@
 package com.terraboxstudios.publicsms.phone;
 
-import com.terraboxstudios.publicsms.message.InboundMessage;
+import com.terraboxstudios.publicsms.message.inbound.InboundMessage;
 
 import java.io.IOException;
 import java.util.Collection;

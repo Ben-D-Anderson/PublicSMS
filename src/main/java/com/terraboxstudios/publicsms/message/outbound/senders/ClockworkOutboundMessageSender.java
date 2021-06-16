@@ -1,11 +1,11 @@
-package com.terraboxstudios.publicsms.message.senders;
+package com.terraboxstudios.publicsms.message.outbound.senders;
 
 import com.clockworksms.ClockWorkSmsService;
 import com.clockworksms.ClockworkException;
 import com.clockworksms.ClockworkSmsResult;
 import com.clockworksms.SMS;
-import com.terraboxstudios.publicsms.message.OutboundMessage;
-import com.terraboxstudios.publicsms.message.OutboundMessageSender;
+import com.terraboxstudios.publicsms.message.outbound.OutboundMessage;
+import com.terraboxstudios.publicsms.message.outbound.OutboundMessageSender;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
